@@ -1,0 +1,47 @@
+{
+  "_comment": [
+    "Reference contract for automated remediation pull requests.",
+    "Copy to .devin/contract.json in a remediation branch and fill in the",
+    "advisories, version floors and test paths that the change is claiming.",
+    "",
+    "`checks` may only name entries from the allowlist in",
+    ".github/scripts/devin_contract_check.py — contracts never carry shell",
+    "commands. Requesting an unknown check fails the gate immediately.",
+    "",
+    "Allowlist:",
+    "  npm-audit-advisories  target advisories absent from `npm audit --json`",
+    "  osv-advisories        target advisories absent from pinned Python reqs",
+    "  version-floor         named packages sit at or above a minimum version",
+    "  typecheck             `npm run type` (tsc --noEmit) is clean",
+    "  jest-scoped           `npm run test` passes for the listed paths",
+    "",
+    "Only typecheck and jest-scoped install node_modules; the others read the",
+    "lockfile and manifests, so a security-lane gate finishes in about a minute."
+  ],
+
+  "issue": 1,
+  "lane": "security",
+
+  "checks": [
+    "npm-audit-advisories",
+    "version-floor",
+    "jest-scoped"
+  ],
+
+  "advisories": [
+    "GHSA-px8p-9vwx-vf98",
+    "GHSA-w3rx-r6r6-pgpr",
+    "GHSA-5p2g-fcmc-qvqq"
+  ],
+
+  "min_versions": {
+    "@deck.gl/core": "9.2.5",
+    "@deck.gl/geo-layers": "9.2.5",
+    "@deck.gl/mesh-layers": "9.2.5",
+    "@luma.gl/core": "9.2.5"
+  },
+
+  "jest_paths": [
+    "plugins/preset-chart-deckgl"
+  ]
+}

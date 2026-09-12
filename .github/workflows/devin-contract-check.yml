@@ -1,0 +1,59 @@
+name: "Devin Contract Check"
+
+# Fast, scoped verification gate for automated remediation pull requests.
+#
+# Superset's full CI matrix is far too slow to gate an autonomous remediation
+# loop on, so this workflow asserts only what a given pull request claims to
+# have fixed. A pull request opts in by committing `.devin/contract.json`;
+# every other pull request skips this workflow entirely.
+#
+# The contract selects from a fixed allowlist of checks and never supplies
+# shell commands, so a pull request cannot inject commands into this job.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    name: "Verify remediation contract"
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Validates the contract and decides whether the expensive frontend
+      # install is needed. Lockfile-only contracts skip it.
+      - name: Plan contract
+        id: plan
+        run: python3 .github/scripts/devin_contract_check.py plan
+
+      - name: Set up Node
+        if: steps.plan.outputs.present == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: "superset-frontend/.nvmrc"
+          cache: "npm"
+          cache-dependency-path: "superset-frontend/package-lock.json"
+
+      - name: Install frontend dependencies
+        if: steps.plan.outputs.needs_node == 'true'
+        working-directory: superset-frontend
+        run: npm ci --no-audit --no-fund
+
+      - name: Run contract checks
+        if: steps.plan.outputs.present == 'true'
+        run: python3 .github/scripts/devin_contract_check.py run
