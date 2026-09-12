@@ -1,0 +1,8 @@
+{
+  "issue": 6,
+  "lane": "quality",
+  "checks": ["typecheck", "jest-scoped"],
+  "jest_paths": [
+    "src/explore/components/controls/MetricControl"
+  ]
+}
