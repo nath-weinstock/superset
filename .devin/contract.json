@@ -1,0 +1,14 @@
+{
+  "issue": 5,
+  "lane": "security",
+  "checks": ["osv-advisories"],
+  "advisories": [
+    "GHSA-r374-rxx8-8654",
+    "GHSA-58pv-8j8x-9vj2",
+    "GHSA-6w46-j5rx-g56g",
+    "GHSA-5rvq-cxj2-64vf",
+    "GHSA-6jv3-5f52-599m",
+    "GHSA-v9pg-7xvm-68hf",
+    "GHSA-vffw-93wf-4j4q"
+  ]
+}
