@@ -20,7 +20,11 @@ import { nanoid } from 'nanoid';
 import rison from 'rison';
 import type { AnyAction } from 'redux';
 import type { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import type { QueryColumn, SupersetError } from '@superset-ui/core';
+import type {
+  InnerQueryResults,
+  QueryColumn,
+  SupersetError,
+} from '@superset-ui/core';
 import {
   FeatureFlag,
   SupersetClient,
@@ -80,12 +84,16 @@ export interface Query {
   inLocalStorage?: boolean;
   executedSql?: string;
   query_id?: number;
+  maxRow?: number;
+  changed_on?: string;
+  results?: InnerQueryResults;
 }
 
 export interface Database {
   id: number;
   allow_run_async: boolean;
   disable_data_preview?: boolean;
+  extra?: string | null;
 }
 
 /**
