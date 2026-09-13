@@ -45,3 +45,11 @@
 # DockerContainer plus whatever driver its own extra above already
 # provides.
 testcontainers[cockroachdb,cratedb,mongodb,mssql,mysql,oracle,postgres,trino]>=4.15.0,<5
+
+# Security: GHSA-58pv-8j8x-9vj2 - path traversal in jaraco.context (pulled in via keyring)
+jaraco-context>=6.1.0
+# Security: GHSA-6w46-j5rx-g56g - tmpdir handling in pytest
+pytest>=9.0.3,<10.0.0
+# Security: GHSA-5rvq-cxj2-64vf, GHSA-6jv3-5f52-599m, GHSA-v9pg-7xvm-68hf,
+# GHSA-vffw-93wf-4j4q - python-multipart parsing (pulled in via mcp/fastmcp)
+python-multipart>=0.0.31
