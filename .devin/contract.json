@@ -1,0 +1,17 @@
+{
+  "issue": 1,
+  "lane": "security",
+  "checks": ["npm-audit-advisories", "version-floor", "jest-scoped"],
+  "advisories": [
+    "GHSA-px8p-9vwx-vf98",
+    "GHSA-w3rx-r6r6-pgpr",
+    "GHSA-5p2g-fcmc-qvqq"
+  ],
+  "min_versions": {
+    "@deck.gl/core": "9.2.5",
+    "@deck.gl/geo-layers": "9.2.5",
+    "@deck.gl/mesh-layers": "9.2.5",
+    "@luma.gl/core": "9.2.5"
+  },
+  "jest_paths": ["plugins/preset-chart-deckgl"]
+}
