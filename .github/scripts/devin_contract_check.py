@@ -190,6 +190,15 @@ def check_osv_advisories(contract: dict) -> None:
 
 
 def check_typecheck(_: dict) -> None:
+    # Project references emit .d.ts under plugins/*/lib. Upstream frontend
+    # CI runs `npm run plugins:build` before `npm run type`; a bare tsc on
+    # a fresh `npm ci` fails TS6305 on master too. Hardcoded here so a
+    # contract cannot inject a different command.
+    built = run_command(["npm", "run", "plugins:build"], cwd=FRONTEND)
+    if built.returncode != 0:
+        raise CheckFailure(
+            f"plugins:build failed:\n{(built.stdout + built.stderr)[-4000:]}"
+        )
     result = run_command(["npm", "run", "type"], cwd=FRONTEND)
     if result.returncode != 0:
         raise CheckFailure(f"tsc reported errors:\n{result.stdout[-4000:]}")
