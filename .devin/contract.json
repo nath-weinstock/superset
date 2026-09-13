@@ -1,0 +1,12 @@
+{
+  "issue": 3,
+  "lane": "security",
+  "checks": ["npm-audit-advisories", "version-floor"],
+  "advisories": [
+    "GHSA-2883-xcg3-v3hh",
+    "GHSA-w4pp-8pjf-rmxw"
+  ],
+  "min_versions": {
+    "lerna": "10.0.1"
+  }
+}

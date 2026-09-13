@@ -396,7 +396,7 @@
     "@luma.gl/webgl": "~9.2.5",
     "core-js": "^3.38.1",
     "cosmiconfig": {
-      "js-yaml": "^4.3.1"
+      "js-yaml": "^4.3.2"
     },
     "dompurify": "^3.4.13",
     "esbuild": "^0.28.1",
@@ -419,16 +419,17 @@
     },
     "jspdf": "^4.2.0",
     "lerna": {
-      "js-yaml": "^4.3.1"
+      "js-yaml": "^4.3.2"
     },
     "minimatch@>=10": {
       "brace-expansion": ">=5.0.8"
     },
     "nanoid@>=3 <4": "3.3.18",
     "nwsapi": "^2.2.24",
+    "pacote": "^21.5.1",
     "puppeteer": "^22.4.1",
     "react-diff-viewer-continued": {
-      "js-yaml": "^4.3.1"
+      "js-yaml": "^4.3.2"
     },
     "tar": "^7.5.16",
     "typescript-json-schema": "^0.68.0",
