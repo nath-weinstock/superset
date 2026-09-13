@@ -1,0 +1,8 @@
+{
+  "issue": 7,
+  "lane": "quality",
+  "checks": ["typecheck", "jest-scoped"],
+  "jest_paths": [
+    "src/SqlLab/reducers/sqlLab.test.ts"
+  ]
+}
